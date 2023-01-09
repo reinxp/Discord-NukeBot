@@ -21,3 +21,7 @@ python main.py
  - [x] Delete Roles
  - [x] Create Channels
  - [x] Create Roles
+
+***
+# Discalimer
+### Use this only for educational Purpose.I am not responsibe for your actions!!1!1!11
