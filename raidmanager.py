@@ -1,4 +1,11 @@
 import discord
+import random
+from discord.ext import commands
+from discord import Permissions, Embed
+import asyncio
+import json
+from colorama import  init, Fore
+init()
 
 class RaidManager:
     
