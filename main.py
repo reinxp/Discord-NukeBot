@@ -6,6 +6,9 @@ import asyncio
 import json
 from colorama import  init, Fore
 init()
+
+from raidmanager import RaidManager
+
 with open('./config.json', 'r') as cjson:
     config = json.load(cjson)
 
@@ -140,27 +143,8 @@ async def on_message(message):
         embeds.add_field(name="<:4_:1054329534593693635> Subscription Help:", value="<:3_:1054329534593693635>If you are interested in getting a more advanced wick with more features,\nplease consider checking out our Premium Version [wickbot.com/premium\n<:3_:1054329534593693635>If you just purchased a Wick Tier and you need help, Please join the Discord Support Server", inline=True)
         await message.channel.send(embed=embeds)
     elif message.content == 'w!setup':
-        embed = discord.Embed(title="Welcome to Wick's setup.Setup will start in 3 seconds.")
-        embed1 = Embed(title="Wick Setup:",description="<:5_:1054329534593693635> Initializing Quick Setup! \n <:7_:1054329534593693635> Checking for permissions... \n <:7_:1054329534593693635>Checking Wick's role position...",)
-        embed2 = Embed(title="Wick Setup:",description="<:5_:1054329534593693635> Initializing Quick Setup! \n <:5_:1054329534593693635> Checking for permissions... \n <:5_:1054329534593693635>Checking Wick's role position... \n <:7_:1054329534593693635>Setting up Quarantine role across all channels.. \n <:7_:1054329534593693635>Ensuring Quarantine role is placed properly..",)
-        embed3 = Embed(title="Wick Setup:",description="<:5_:1054329534593693635> Initializing Quick Setup! \n <:5_:1054329534593693635> Checking for permissions... \n <:5_:1054329534593693635>Checking Wick's role position... \n <:5_:1054329534593693635>Setting up Quarantine role across all channels.. \n <:5_:1054329534593693635>Ensuring Quarantine role is placed properly.. \n <:7_:1054329534593693635>Checking if there's an existing Logging Channel...",)
-        embed4 = Embed(title="Wick Setup:",description="<:5_:1054329534593693635> Initializing Quick Setup! \n <:5_:1054329534593693635> Checking for permissions... \n <:5_:1054329534593693635>Checking Wick's role position... \n <:5_:1054329534593693635>Setting up Quarantine role across all channels.. \n <:5_:1054329534593693635>Ensuring Quarantine role is placed properly.. \n <:5_:1054329534593693635>Checking if there's an existing Logging Channel... \n <:7_:1054329534593693635>Checking if there's an existing Mod-Log channel..",)
-        embed5 = Embed(title="Wick Setup:",description="<:5_:1054329534593693635> Initializing Quick Setup! \n <:5_:1054329534593693635> Checking for permissions... \n <:5_:1054329534593693635>Checking Wick's role position... \n <:5_:1054329534593693635>Setting up Quarantine role across all channels.. \n <:5_:1054329534593693635>Ensuring Quarantine role is placed properly.. \n <:5_:1054329534593693635>Checking if there's an existing Logging Channel... \n <:5_:1054329534593693635>Checking if there's an existing Mod-Log channel.. \n <:7_:1054329534593693635>Saving changes...",)
-        embed6 = Embed(title="Wick Setup:",description="<:5_:1054329534593693635> Initializing Quick Setup! \n <:5_:1054329534593693635> Checking for permissions... \n <:5_:1054329534593693635>Checking Wick's role position... \n <:5_:1054329534593693635>Setting up Quarantine role across all channels.. \n <:5_:1054329534593693635>Ensuring Quarantine role is placed properly.. \n <:5_:1054329534593693635>Checking if there's an existing Logging Channel... \n <:5_:1054329534593693635>Checking if there's an existing Mod-Log channel.. \n <:5_:1054329534593693635>Saving changes...",)
-        embed6.add_field(name="Setup Finished!",value="The setup finished successfully in 1s. You can now proceeded at following the documentations to setup other settings that would require your own input.")
-        msg = await message.channel.send(embed=embed)
-        await asyncio.sleep(1)
-        await msg.edit(embed=embed)
-        await asyncio.sleep(0)
-        await msg.edit(embed=embed1)
-        await asyncio.sleep(1)
-        await msg.edit(embed=embed2)
-        await asyncio.sleep(0)
-        await msg.edit(embed=embed3)
-        await asyncio.sleep(1)
-        await msg.edit(embed=embed4)
-        await asyncio.sleep(0)
-        await msg.edit(embed=embed5)
+        raidmanager = RaidManager()
+        await raidmanager.setup(message.channel)
 
 @bot.event
 async def on_guild_channel_create(channel):
